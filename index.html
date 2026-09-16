@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Coração I Love You</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Ajusta o tamanho da tela
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    ctx.fillStyle = '#db1230';
+    ctx.font = 'bold 10px Arial';
+    ctx.textAlign = 'center';
+
+    let scale = 11;
+    let i = 0;
+
+    function desenhar() {
+      if (scale > 16) return; // Encerra ao terminar os loops
+
+      const angle = (i * Math.PI * 2) / 120;
+      const x = 16 * Math.pow(Math.sin(angle), 3) * scale;
+      const y = (13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle)) * scale;
+
+      // Inverte o eixo Y para desenhar na orientação correta no Canvas
+      ctx.fillText("VINI PAPOI", centerX + x, centerY - y);
+
+      i++;
+      if (i >= 120) {
+        i = 0;
+        scale++;
+      }
+
+      // Controla a velocidade do desenho (10ms)
+      setTimeout(desenhar, 10);
+    }
+
+    desenhar();
+  </script>
+</body>
+</html>
